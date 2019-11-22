@@ -95,7 +95,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run linting!
       - run:
           name: run linting
           command: ./bin/lint.sh
@@ -126,9 +125,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run linting!
       - run:
-          name: run linting
+          name: run unit tests
           command: ./bin/unit-test.sh
 
   end-to-end-test:
@@ -157,9 +155,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run linting!
       - run:
-          name: run linting
+          name: run end to end tests
           command: ./bin/e2e-test.sh
 
 workflows:
