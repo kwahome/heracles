@@ -27,7 +27,7 @@ const getElementByXPath = async (driver, xpath, timeout = 2000) => {
 }
 
 describe("format amount end to end tests", () => {
-    const url: string = 'http://localhost:3000'
+    const url = 'http://localhost:3000'
     let driver;
 
     describe("chrome browser", () => {
@@ -62,7 +62,7 @@ describe("format amount end to end tests", () => {
 
     describe("firefox browser", () => {
 
-        let url: string = "http://localhost:3000"
+        const url = "http://localhost:3000"
 
         beforeAll(async () => {
             const options = new firefox.Options();
