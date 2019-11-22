@@ -13,5 +13,5 @@ module.exports = {
     "moduleNameMapper": {
         "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
-    testPathIgnorePatterns: ['__tests__/*', 'test-setup.tsx']
+    testPathIgnorePatterns: ['tests/*', 'test-setup.tsx']
 }

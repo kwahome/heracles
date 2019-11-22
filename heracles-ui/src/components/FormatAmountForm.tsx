@@ -316,6 +316,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
               </Grid>
 
               <Button
+                  id="formatAmountSubmit"
                   type="submit"
                   fullWidth
                   variant="contained"
