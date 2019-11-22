@@ -42,5 +42,33 @@ describe("<FormatAmountForm />", () => {
             expect(currency.prop('type')).toBe('number');
             expect(currency.prop('label')).toBe('Amount precision');
         });
+
+        it('renders locale field', () => {
+            const currency = wrapper.find('[id="locale"]');
+
+            expect(currency.prop('type')).toBe('text');
+            expect(currency.prop('label')).toBe('Applicable locale');
+        });
+
+        it('renders decimal places field', () => {
+            const currency = wrapper.find('[id="decimalPlaces"]');
+
+            expect(currency.prop('type')).toBe('number');
+            expect(currency.prop('label')).toBe('Number of decimal places');
+        });
+
+        it('renders thousands separator field', () => {
+            const currency = wrapper.find('[id="thousandsSeparator"]');
+
+            expect(currency.prop('type')).toBe('text');
+            expect(currency.prop('label')).toBe('Grouping separator');
+        });
+
+        it('renders decimal separator field', () => {
+            const currency = wrapper.find('[id="decimalSeparator"]');
+
+            expect(currency.prop('type')).toBe('text');
+            expect(currency.prop('label')).toBe('Decimal separator');
+        });
     });
 });

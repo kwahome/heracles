@@ -80,13 +80,13 @@ export default class FormatAmountForm extends React.Component<Props, State> {
       formattedAmount: "",
       formatAmountError: undefined,
       form: {
-        currency: "",
-        value: "",
-        precision: "",
-        locale: "",
-        decimalPlaces: "",
-        thousandsSeparator: "",
-        decimalSeparator: "",
+          currency: "",
+          value: "",
+          precision: "",
+          locale: null,
+          decimalPlaces: null,
+          thousandsSeparator: null,
+          decimalSeparator: null,
       },
     };
   }
@@ -100,13 +100,13 @@ export default class FormatAmountForm extends React.Component<Props, State> {
   public clear() {
     this.setState({
       form: {
-        currency: "",
-        value: "",
-        precision: "",
-        locale: "",
-        decimalPlaces: "",
-        thousandsSeparator: "",
-        decimalSeparator: "",
+          currency: "",
+          value: "",
+          precision: "",
+          locale: null,
+          decimalPlaces: null,
+          thousandsSeparator: null,
+          decimalSeparator: null,
       },
       submitSuccess: undefined,
       formatAmountError: undefined,
@@ -223,6 +223,98 @@ export default class FormatAmountForm extends React.Component<Props, State> {
                 />
               </Grid>
 
+              {/* locale field*/}
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="locale"
+                    name="locale"
+                    label="Applicable locale"
+                    type="text"
+                    autoComplete=""
+                    autoFocus
+                    onChange={(event) => {
+                      this.clearErrors()
+                      const form = this.state.form;
+                      form.locale = event.target.value
+                      this.setState({
+                        form,
+                      });
+                    }}
+                />
+              </Grid>
+
+              {/* decimal places field*/}
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="decimalPlaces"
+                    name="decimalPlaces"
+                    label="Number of decimal places"
+                    type="number"
+                    autoComplete=""
+                    autoFocus
+                    onChange={(event) => {
+                      this.clearErrors()
+                      const form = this.state.form;
+                      form.decimalPlaces = event.target.value
+                      this.setState({
+                        form,
+                      });
+                    }}
+                />
+              </Grid>
+
+              {/* thousands separator field*/}
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="thousandsSeparator"
+                    name="thousandsSeparator"
+                    label="Grouping separator"
+                    type="text"
+                    autoComplete=""
+                    autoFocus
+                    onChange={(event) => {
+                      this.clearErrors()
+                      const form = this.state.form;
+                      form.thousandsSeparator = event.target.value
+                      this.setState({
+                        form,
+                      });
+                    }}
+                />
+              </Grid>
+
+              {/* decimal separator field*/}
+              <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    id="decimalSeparator"
+                    name="decimalSeparator"
+                    label="Decimal separator"
+                    type="text"
+                    autoComplete=""
+                    autoFocus
+                    onChange={(event) => {
+                      this.clearErrors()
+                      const form = this.state.form;
+                      form.decimalSeparator = event.target.value
+                      this.setState({
+                        form,
+                      });
+                    }}
+                />
+              </Grid>
+
               <Button
                   type="submit"
                   fullWidth
@@ -254,7 +346,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
                 </Paper>
             )}
             {submitSuccess === false && !this.haveErrors() && (
-                <div className="error">
+                <div className="formattedAmountContainer error">
                   Sorry, an unexpected error has occurred
                 </div>
             )}
@@ -264,7 +356,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
             {/*    </div>*/}
             {/*)}*/}
             {this.state.formatAmountError && (
-                <div className="error">
+                <div className="formattedAmountContainer error">
                   {this.state.formatAmountError}
                 </div>
             )}

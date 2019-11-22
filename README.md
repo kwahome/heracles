@@ -90,22 +90,7 @@ To run these tests use:
 
 and `npm run test` on the react frontend. 
 
-```
-> npm run test
-
-> heracles-ui@0.1.0 test /Users/kelvin.wahome/Projects/own/pleo/heracles/heracles-ui
-> jest
-
- PASS  src/services/FromatAmountService.spec.tsx
- PASS  src/components/FormatAmountForm.spec.tsx (8.581s)
-
-Test Suites: 2 passed, 2 total
-Tests:       5 passed, 5 total
-Snapshots:   0 total
-Time:        9.533s
-Ran all test suites.
-
-```
+![](docs/npm-run-test-report.png)
     
 Make sure to be on the correct directory
     
