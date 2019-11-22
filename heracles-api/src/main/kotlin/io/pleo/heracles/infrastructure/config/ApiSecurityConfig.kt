@@ -21,6 +21,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
+import org.springframework.security.web.session.SessionManagementFilter
 import org.springframework.stereotype.Component
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
@@ -49,6 +50,9 @@ class ApiSecurityConfig : WebSecurityConfigurerAdapter() {
         configuration.allowedMethods = listOf("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
         configuration.allowedHeaders = listOf("*")
         configuration.allowCredentials = true
+        configuration.addAllowedHeader("Access-Control-Allow-Origin")
+        configuration.addAllowedHeader("Access-Control-Allow-Headers")
+        configuration.addAllowedHeader("Access-Control-Max-Age")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
@@ -58,6 +62,7 @@ class ApiSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(httpSecurity: HttpSecurity) {
         httpSecurity.cors()
         httpSecurity
+                .addFilterBefore(CorsFilter(), SessionManagementFilter::class.java)
                 .antMatcher(antPattern)
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
