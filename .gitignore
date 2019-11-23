@@ -32,7 +32,7 @@ out/
 .vscode/
 
 .openapi-generator
-gradle/
+.gradle/
 
 **/.kotlintest
 
