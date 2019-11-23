@@ -22,10 +22,8 @@ ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
 
-COPY --from=builder $APP_HOME/build/libs/heracles-api-0.0.1-SNAPSHOT.jar $APP_HOME/bin/start.sh $APP_HOME/bin/lint.sh $APP_HOME/bin/integration-test.sh $APP_HOME/bin/unit-test.sh ./
-
-RUN find . -type f -iname "*.sh" -exec chmod +x {} \;
+COPY --from=builder $APP_HOME/build/libs/heracles-api-0.0.1-SNAPSHOT.jar $APP_HOME/bin/start.sh $APP_HOME
 
 EXPOSE 8080
 
-CMD ["/bin/bash", "-c", "start.sh"]
+CMD ["bash", "start.sh"]

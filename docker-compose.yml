@@ -1,9 +1,9 @@
-version: "3.2"
+version: "3.4"
 services:
   app:
     build:
       context: heracles-api/.
-#      target: "${DOCKER_STAGE}"
+      target: "${DOCKER_STAGE}"
     container_name: heracles-api
     ports:
       - 8080:8080
