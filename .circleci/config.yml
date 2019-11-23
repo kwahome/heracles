@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: run linting
+          name: run unit test
           command: cd heracles-api && ./bin/unit-test.sh
 
   api-integration-test:
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: run linting
+          name: run integration test
           command: cd heracles-api && ./bin/integration-test.sh
 
   ui-lint:
