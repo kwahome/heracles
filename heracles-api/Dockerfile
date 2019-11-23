@@ -11,7 +11,7 @@ COPY . .
 
 # Download and setup gradle
 
-#RUN ./gradlew --version
+RUN ./gradlew --version
 
 RUN ./gradlew clean assemble
 
@@ -28,4 +28,4 @@ RUN find . -type f -iname "*.sh" -exec chmod +x {} \;
 
 EXPOSE 8080
 
-CMD ["bash", "-c", "start.sh"]
+CMD ["bash", "-c", "./start.sh"]

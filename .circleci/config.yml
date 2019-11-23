@@ -18,7 +18,7 @@ jobs:
 
       - run:
           name: build app
-          command: docker build heracles-api/. --tag heracles-api
+          command: cd heracles-api && docker build . --tag heracles-api
 
       - run:
           name: run linting
