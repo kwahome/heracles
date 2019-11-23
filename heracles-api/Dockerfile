@@ -11,7 +11,7 @@ COPY . .
 
 # Download and setup gradle
 
-RUN ./gradlew --version
+#RUN ./gradlew --version
 
 RUN ./gradlew clean assemble
 

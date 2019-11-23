@@ -116,7 +116,7 @@ jobs:
 
   end-to-end-test:
     docker:
-      - image: circleci/classic:201708-01
+      - image: circleci/openjdk:11.0.3-jdk-stretch
         working_directory: ~/heracles-e2e-tests
     steps:
       - checkout
