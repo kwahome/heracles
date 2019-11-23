@@ -1,7 +1,7 @@
 version: 2
 defaults: &defaults
   machine:
-    image: circleci/classic:201708-01
+    image: circleci/classic:latest
   working_directory: ~/heracles
 
 jobs:
@@ -18,16 +18,14 @@ jobs:
 
       - run:
           name: build app
-          command: cd heracles-api && docker build . --tag heracles-api
+          command: docker build heracles-api/. --tag heracles-api
 
       - run:
           name: run linting
           command: docker run heracles-api ./bin/lint.sh
 
   api-unit-test:
-    docker:
-      - image: circleci/openjdk:11.0.3-jdk-stretch
-        working_directory: ~/heracles-api
+    <<: *defaults
     steps:
       - checkout
 
@@ -40,9 +38,7 @@ jobs:
           command: docker run heracles-api ./bin/unit-test.sh
 
   api-integration-test:
-    docker:
-      - image: circleci/openjdk:11.0.3-jdk-stretch
-        working_directory: ~/heracles-api
+    <<: *defaults
     steps:
       - checkout
 
@@ -115,9 +111,7 @@ jobs:
           command: ./bin/unit-test.sh
 
   end-to-end-test:
-    docker:
-      - image: circleci/openjdk:11.0.3-jdk-stretch
-        working_directory: ~/heracles-e2e-tests
+    <<: *defaults
     steps:
       - checkout
 
