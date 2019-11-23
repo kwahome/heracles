@@ -61,18 +61,27 @@ An example success response from this API:
 
 **Tech stack**
 - Programming language(s) : Kotlin, Typescript, React
-- Framework : Spring Boot
-- UI theme & design: Material UI
-- Containerization: Docker
+- Backend Framework : Spring Boot
+- Frontend Framework : React JS
+- UI theme & design : Material UI
+- Containerization : Docker
 - Continuous Integration pipeline : CircleCI
 - Static analysis tool : Code Climate
 - Linting : kotlinter (Kotlin), eslint (Typescript/React)
 - Unit tests : JUnit (backend), jest(frontend)
 - Integration tests : JUnit
-- UI tests : Selenium WebDriver
+- End to end tests : Kotlin with Selenium WebDriver
 - API documentation : Swagger
 
 **Type of tests**
+
+Various types of automated tests targeting different aspects and goals of testing have been written for this challenge.
+Generally, the test pyramid has been following towards this end with a huge percentage of these tests being unit tests
+as they are cheap to write and fast to run.
+
+![](docs/test-pyramid.png)
+
+Below are the kinds of tests employed:
 
 **1. Unit tests**
 
@@ -85,7 +94,7 @@ unit tests while `jest` is used on the front end. `jacoco` has been integrated f
 To run these tests use:
 
 `gradle test` on the kotlin backend. A `jacoco` test report will be generated and stored in the path
-`build/reports/tests/test/index.html`.
+`/heracles/heracles-api/build/reports/tests/test/index.html`.
 
 ![](docs/gradle-test-report.png)
 
@@ -111,11 +120,43 @@ application of test containers to set up a reusable integration test framework.
 To run these tests, use:
     
 `gradle integrationTest`. A `jacoco` test report will be generated and stored in the path 
-`build/reports/tests/integrationTest/index.html`
+`/heracles/heracles-api/build/reports/tests/integrationTest/index.html`
 
 ![](docs/gradle-integration-test-report.png)
 
-**3. Linting**
+Make sure to be on the correct directory.
+
+**3. End to End tests**
+
+These are used to test whether the flow of an application is performing as designed from start to finish validating
+not only the software system under test but also checks its integration with external interfaces.
+
+In our case, the UI collects user inputs via html forms, does some client side validates, submits to the backend via the
+exposed API and renders the response. And end to end flow thus involves the two components talking to each other.
+Scenarios are then generated and scripted as repeatable.
+
+Since these are "higher level" tests that are not coupled to the structure or technology of specific aspects of the 
+software system under test but rather are concerned about it's behaviour, they can be coded in isolation allowing
+choices in technologies to use.
+
+These kinds of test are also the most significant targets of test automation as they have been mostly coupled into
+exploratory testing by most people.
+
+The directory `heracles-e2e-tests` has been created to house all the code used to achieve end to end testing. End to
+end tests for this challenge are written using `kotlin` and `selenium web driver` and `junit` testing framework.
+`Page Object Model` design pattern is applied to encourage more looser coupling and reduce code duplication.
+
+To run these tests, use:
+
+`gradle test`. A `jacoco` test report will be generated and stored in the path 
+`/heracles/heracles-e2e-tests/build/reports/tests/test/index.html`
+
+![](docs/gradle-end-to-end-test-report.png)
+
+Make sure to be on the correct directory and have both the backend and frontend applications running and env variable
+name `HERACLES_HOST` (the front end application host) set correctly.
+
+**4. Linting**
 
 > Code is read more than it is written 
 
@@ -135,6 +176,8 @@ CircleCI is the build pipeline tool in use.
 Its configuration can be found at `.circleci/config.yml`.
 Tests and checks described above have all been wired up as parallelized jobs on this pipeline for optimized
 performance.
+
+![](docs/circle-ci-checks.png)
     
 **Enhancements**
 

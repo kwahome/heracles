@@ -12,7 +12,7 @@ RUN npm run-script build
 FROM nginx:1.17.1-alpine
 
 ## Copy our default nginx config
-COPY ci/nginx/default.conf /etc/nginx/conf.d/
+COPY nginx/default.conf /etc/nginx/conf.d/
 
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*

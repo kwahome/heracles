@@ -5,6 +5,8 @@ services:
       context: heracles-api/.
       target: "${DOCKER_STAGE}"
     container_name: heracles-api
+    ports:
+      - 8080:8080
     volumes:
       - .:/usr/app
       - /var/run/docker.sock:/var/run/docker.sock
@@ -13,6 +15,10 @@ services:
     build:
       context: heracles-ui/.
     container_name: heracles-ui
+    ports:
+      - 3000:3000
     volumes:
       - .:/usr/app
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - REACT_APP_UI_URL=http://localhost:3100
