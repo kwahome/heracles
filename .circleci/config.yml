@@ -16,18 +16,13 @@ jobs:
             [ ${NO_CHANGES:-0} -eq 1 ] && exit 0
             docker info
 
-      # copy code to cwd
-      - run:
-          name: copy heracles-api to cwd
-          command: cp -a heracles-api/. .
-
       - run:
           name: build app
-          command: docker build . --tag heracles-api
+          command: docker build heracles-api/. --tag heracles-api
 
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/lint.sh
+          command: docker run heracles-api ./lint.sh
 
   api-unit-test:
     docker:
@@ -36,18 +31,13 @@ jobs:
     steps:
       - checkout
 
-      # copy code to cwd
-      - run:
-          name: copy heracles-api to cwd
-          command: cp -a heracles-api/. .
-
       - run:
           name: build app
-          command: docker build . --tag heracles-api
+          command: docker build heracles-api/. --tag heracles-api
 
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/unit-test.sh
+          command: docker run heracles-api ./unit-test.sh
 
   api-integration-test:
     docker:
@@ -56,18 +46,13 @@ jobs:
     steps:
       - checkout
 
-      # copy code to cwd
-      - run:
-          name: copy heracles-api to cwd
-          command: cp -a heracles-api/. .
-
       - run:
           name: build app
-          command: docker build . --tag heracles-api
+          command: docker build heracles-api/. --tag heracles-api
 
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/integration-test.sh
+          command: docker run heracles-api ./integration-test.sh
 
   ui-lint:
     docker:

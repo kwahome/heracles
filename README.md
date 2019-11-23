@@ -60,8 +60,9 @@ An example success response from this API:
 ```
 
 **Tech stack**
-- Programming language : Kotlin
+- Programming language(s) : Kotlin, Typescript, React
 - Framework : Spring Boot
+- UI theme & design: Material UI
 - Containerization: Docker
 - Continuous Integration pipeline : CircleCI
 - Static analysis tool : Code Climate

@@ -143,7 +143,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
               {/* currency field*/}
               <Grid item xs={12}>
                 {this.fieldErrors("currency").map((error) => {
-                  return <span className="error" key={error.error}>{error.error}</span>
+                  return <span id="currencyInputError" className="error" key={error.error}>{error.error}</span>
                 })}
                 <TextField
                     variant="outlined"
@@ -171,7 +171,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
               {/* value field*/}
               <Grid item xs={12}>
                 {this.fieldErrors("value").map((error) => {
-                  return <span className="error" key={error.error}>{error.error}</span>;
+                  return <span id="valueInputError" className="error" key={error.error}>{error.error}</span>;
                 })}
                 <TextField
                     variant="outlined"
@@ -199,7 +199,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
               {/* precision field*/}
               <Grid item xs={12}>
                 {this.fieldErrors("precision").map((error) => {
-                  return <span className="error" key={error.error}>{error.error}</span>;
+                  return <span id="precisionInputError" className="error" key={error.error}>{error.error}</span>;
                 })}
                 <TextField
                     variant="outlined"
@@ -316,6 +316,7 @@ export default class FormatAmountForm extends React.Component<Props, State> {
               </Grid>
 
               <Button
+                  id="formatAmountSubmit"
                   type="submit"
                   fullWidth
                   variant="contained"
@@ -341,14 +342,14 @@ export default class FormatAmountForm extends React.Component<Props, State> {
             </form>
 
             {submitSuccess && (
-                <Paper className="formattedAmountContainer">
+                <Paper id="formattedAmountPaper" className="formattedAmountContainer">
                   Formatted Amount: {this.state.formattedAmount}
                 </Paper>
             )}
             {submitSuccess === false && !this.haveErrors() && (
-                <div className="formattedAmountContainer error">
+                <Paper id="formattedAmountPaper" className="formattedAmountContainer error">
                   Sorry, an unexpected error has occurred
-                </div>
+                </Paper>
             )}
             {/*{this.haveErrors() && (*/}
             {/*    <div className="error">*/}
@@ -356,9 +357,9 @@ export default class FormatAmountForm extends React.Component<Props, State> {
             {/*    </div>*/}
             {/*)}*/}
             {this.state.formatAmountError && (
-                <div className="formattedAmountContainer error">
+                <Paper id="formattedAmountPaper" className="formattedAmountContainer error">
                   {this.state.formatAmountError}
-                </div>
+                </Paper>
             )}
           </div>
 
