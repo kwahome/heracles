@@ -6,49 +6,34 @@ defaults: &defaults
 
 jobs:
   api-lint:
-    <<: *defaults
+    docker:
+      - image: circleci/openjdk:11-jdk
+        working_directory: ~/heracles-api
     steps:
       - checkout
-
-      - run:
-          name: docker setup
-          command: |
-            [ ${NO_CHANGES:-0} -eq 1 ] && exit 0
-            docker info
-
-      - run:
-          name: build app
-          command: docker build heracles-api/. --tag heracles-api
-
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/lint.sh
+          command: cd heracles-api && ./bin/lint.sh
 
   api-unit-test:
-    <<: *defaults
+    docker:
+      - image: circleci/openjdk:11-jdk
+        working_directory: ~/heracles-api
     steps:
       - checkout
-
-      - run:
-          name: build app
-          command: docker build heracles-api/. --tag heracles-api
-
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/unit-test.sh
+          command: cd heracles-api && ./bin/unit-test.sh
 
   api-integration-test:
-    <<: *defaults
+    docker:
+      - image: circleci/openjdk:11-jdk
+        working_directory: ~/heracles-api
     steps:
       - checkout
-
-      - run:
-          name: build app
-          command: docker build heracles-api/. --tag heracles-api
-
       - run:
           name: run linting
-          command: docker run heracles-api ./bin/integration-test.sh
+          command: cd heracles-api && ./bin/integration-test.sh
 
   ui-lint:
     docker:
