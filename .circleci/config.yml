@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: run linting
-          command: docker run heracles-api ./lint.sh
+          command: docker run heracles-api ./bin/lint.sh
 
   api-unit-test:
     docker:
@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: run linting
-          command: docker run heracles-api ./unit-test.sh
+          command: docker run heracles-api ./bin/unit-test.sh
 
   api-integration-test:
     docker:
@@ -52,7 +52,7 @@ jobs:
 
       - run:
           name: run linting
-          command: docker run heracles-api ./integration-test.sh
+          command: docker run heracles-api ./bin/integration-test.sh
 
   ui-lint:
     docker:
@@ -116,33 +116,23 @@ jobs:
 
   end-to-end-test:
     docker:
-      - image: circleci/node:10.16.3
-        working_directory: ~/heracles-ui
+      - image: circleci/classic:201708-01
+        working_directory: ~/heracles-e2e-tests
     steps:
       - checkout
 
-      # copy code to cwd
+      # start app and ui
       - run:
-          name: copy heracles-api to cwd
-          command: cp -a heracles-ui/. .
+          name: start
+          command: docker-compose up
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: build
+          command: docker build heracles-e2e-tests/. --tag heracles-e2e-tests
 
       - run:
           name: run end to end tests
-          command: ./bin/e2e-test.sh
+          command: docker run heracles-api ./bin/e2e-test.sh
 
 workflows:
   version: 2
