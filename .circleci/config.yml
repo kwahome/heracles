@@ -100,18 +100,17 @@ jobs:
     steps:
       - checkout
 
-      # start app and ui
       - run:
-          name: start
-          command: docker-compose up
+          name: build api image
+          command: docker build heracles-api/. --tag heracles-api
 
       - run:
-          name: build
-          command: docker build heracles-e2e-tests/. --tag heracles-e2e-tests
+          name: build ui image
+          command: docker build heracles-ui/. --tag heracles-ui
 
       - run:
           name: run end to end tests
-          command: docker run heracles-api ./bin/e2e-test.sh
+          command: docker run --publish 8080:8080 heracles-api && docker run --publish 3000:3000 heracles-ui && cd heracles-e2e-tests && ./bin/e2e-test.sh
 
 workflows:
   version: 2

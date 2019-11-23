@@ -176,6 +176,8 @@ CircleCI is the build pipeline tool in use.
 Its configuration can be found at `.circleci/config.yml`.
 Tests and checks described above have all been wired up as parallelized jobs on this pipeline for optimized
 performance.
+
+![](docs/circle-ci-checks.png)
     
 **Enhancements**
 

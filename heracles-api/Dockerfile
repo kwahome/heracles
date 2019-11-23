@@ -28,4 +28,4 @@ RUN find . -type f -iname "*.sh" -exec chmod +x {} \;
 
 EXPOSE 8080
 
-CMD ["bash", "-c", "./start.sh"]
+CMD ["/bin/bash", "-c", "start.sh"]
