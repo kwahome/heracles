@@ -3,13 +3,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/4621f26ec6b1d5d7cf6d/maintainability)](https://codeclimate.com/github/kwahome/heracles/maintainability)
 
 Heracles is a web app exposing an API that takes in user amount input and converts into a string format.
-It's fronted by a UI that captures the inputs from the user and submits to the backend.
+It's fronted by a UI that captures the inputs from the user, submits to the backend and displays the result.
 
 ![](docs/heracles.png)
-
-A swagger contract documenting the v1 API can be found at:
-
-```heracles-api/definitions/api/v1/format_amount_1.yml```
 
 **API design**
 
@@ -59,6 +55,15 @@ An example success response from this API:
 }
 ```
 
+**API Contract**
+
+Using a contract first approach, a swagger contract documenting the v1 API was written up and can be found at:
+
+```heracles-api/definitions/api/v1/format_amount_1.yml```
+
+This approach emphasizes publishing the specification of an API before starting any dev work to allow input from all stakeholders. The published contract then forms the basis of collaboration dev work to follow allowing 
+parallelization as the specification of an API is known by all.
+
 **Tech stack**
 - Programming language(s) : Kotlin, Typescript, React
 - Backend Framework : Spring Boot
@@ -85,7 +90,7 @@ Below are the kinds of tests used:
 
 **1. Unit tests**
 
-Testing the smallest testable part of both the backend and front end, these have been added to affirm
+Testing the smallest possible part of both the backend and front end, these have been added to affirm
 correctness of these building blocks. They are meant to be fast as they mock out dependencies.
 
 `JUnit` is used as the test framework and `mockk` for mocking out and spying on various dependencies for backend
@@ -109,8 +114,9 @@ Unit tests form the bulk of tests written here as they are cheap in effort and c
 **2. Integration tests**
 
 These test the integration and working together of various components. They are more 
-expensive to write and are slower to run hence their isolation from unit tests because typically dependencies are not
+expensive to write and are slower to run because typically dependencies are not
 mocked in these kind of tests as the intention is test workflow scenarios.
+Isolating them from unit tests is an important performance optimization step.
 
 For the backend, these tests are located in an `integration` directory of the test package. Integration tests here have 
 been written with the help of SpringBootTest and configuration of random web ports. An improvement here is the
@@ -127,21 +133,21 @@ A `jacoco` test report will be generated and stored in the path
 **3. End to End tests**
 
 These are used to test whether the flow of an application is performing as designed from start to finish validating
-not only the software system under test but also checks its integration with external interfaces.
+not only the software system under test but also its integration with external interfaces.
 
-In our case, the UI collects user inputs via html forms, does some client side validates, submits to the backend via the
-exposed API and renders the response. And end to end flow thus involves the two components talking to each other.
-Scenarios are then generated and scripted as repeatable.
+In our case, the UI collects user inputs via html forms, does some client side validation, submits to the backend via 
+the exposed API and renders the response. And end to end flow thus involves the two components talking to each other.
+Scenarios are generated from behaviour expectation and scripted as a suite of repeatable automated tests.
 
 Since these are "higher level" tests that are not coupled to the structure or technology of specific aspects of the 
-software system under test but rather are concerned about it's behaviour, they can be coded in isolation allowing
-choices in technologies to use.
+software system under test and more concerned about it's behaviour, they can be coded in isolation allowing choices 
+in technologies to use.
 
 These kinds of test are also the most significant targets of test automation as they have been mostly coupled into
 exploratory testing by most people.
 
 The directory `heracles-e2e-tests` has been created to house all the code used to achieve end to end testing. End to
-end tests for this challenge are written using `kotlin` and `selenium web driver` and `junit` testing framework.
+end tests for this challenge are written using `kotlin`, `selenium web driver` and `junit` testing framework.
 `Page Object Model` design pattern is applied to encourage more looser coupling and reduce code duplication.
 
 To run these tests, use:
@@ -152,8 +158,8 @@ A `jacoco` test report will be generated and stored in the path
 
 ![](docs/gradle-end-to-end-test-report.png)
 
-Make sure to be inn the correct directory and have both the backend and frontend applications 
-running and env variable name `HERACLES_HOST` (the front end application host) set correctly.
+Make sure to have both the backend and frontend applications running and env variable name 
+`HERACLES_HOST` (the front end application host) set correctly.
 
 **4. Linting**
 
@@ -183,12 +189,12 @@ performance.
 **Enhancements**
 
 - Dockerization for dev/staging/test/prod environment parity which ensures that runtimes are similar hence reducing
-regression from misconfiguration risks.
+risk of regression from misconfiguration.
 - Use of test containers to set up a configurable and reusable integration test framework. Cloud dependencies can be
-configured with their respective simulators where applicable
+configured with their respective simulators where applicable.
 - More types of tests targeting different aspects of the application lifecycle can be added in for a wider coverage. 
 Load and performance tests that provide an indication of how the application would perform under load are one such 
 example. Another is traffic shadowing which is a release process test.
-- Metrics and logging for better observability. Metrics and traces augments testing as it provides the means of 
+- Metrics and logging for better observability. Metrics and traces augment testing as they provide the means of 
 validating some of the observations being made.
 - Integrating code climate with test reports generated and adding checks on it.
