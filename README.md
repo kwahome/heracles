@@ -81,7 +81,7 @@ as they are cheap to write and fast to run.
 
 ![](docs/test-pyramid.png)
 
-Below are the kinds of tests employed:
+Below are the kinds of tests used:
 
 **1. Unit tests**
 
@@ -93,16 +93,15 @@ unit tests while `jest` is used on the front end. `jacoco` has been integrated f
 
 To run these tests use:
 
-`gradle test` on the kotlin backend. A `jacoco` test report will be generated and stored in the path
+`cd heracles-api && gradle test` or `cd heracles-api && ./bin/unit-test.sh` for the kotlin backend. 
+A `jacoco` test report will be generated and stored in the path 
 `/heracles/heracles-api/build/reports/tests/test/index.html`.
 
 ![](docs/gradle-test-report.png)
 
-and `npm run test` on the react frontend. 
+and `cd heracles-ui && npm run test` or `cd heracles-ui && ./bin/unit-test.sh` for the react frontend. 
 
 ![](docs/npm-run-test-report.png)
-    
-Make sure to be on the correct directory
     
     
 Unit tests form the bulk of tests written here as they are cheap in effort and cover more contained scopes.
@@ -119,12 +118,11 @@ application of test containers to set up a reusable integration test framework.
     
 To run these tests, use:
     
-`gradle integrationTest`. A `jacoco` test report will be generated and stored in the path 
+`cd heracles-ui && gradle integrationTest` or `cd heracles-ui && ./bin/integration-test.sh`. 
+A `jacoco` test report will be generated and stored in the path 
 `/heracles/heracles-api/build/reports/tests/integrationTest/index.html`
 
 ![](docs/gradle-integration-test-report.png)
-
-Make sure to be on the correct directory.
 
 **3. End to End tests**
 
@@ -148,13 +146,14 @@ end tests for this challenge are written using `kotlin` and `selenium web driver
 
 To run these tests, use:
 
-`gradle test`. A `jacoco` test report will be generated and stored in the path 
+`cd heracles-e2e-tests && gradle test` or `cd heracles-e2e-tests && ./bin/end-to-end-test.sh`. 
+A `jacoco` test report will be generated and stored in the path  
 `/heracles/heracles-e2e-tests/build/reports/tests/test/index.html`
 
 ![](docs/gradle-end-to-end-test-report.png)
 
-Make sure to be on the correct directory and have both the backend and frontend applications running and env variable
-name `HERACLES_HOST` (the front end application host) set correctly.
+Make sure to be inn the correct directory and have both the backend and frontend applications 
+running and env variable name `HERACLES_HOST` (the front end application host) set correctly.
 
 **4. Linting**
 
@@ -166,9 +165,11 @@ flag violations
 
 To run these linting, use:
 
-`gradle check` on the kotlin backend and `npm run lint` on the react frontend. 
+`cd heracles-api && gradle check` or `cd heracles-api && ./bin/lint.sh` for the kotlin backend
 
-Make sure to be on the correct directory
+`cd heracles-ui && npm install && npm run lint` or `cd heracles-ui && ./bin/lint.sh` for the react frontend
+
+`cd heracles-e2e-tests && gradle check` `cd heracles-e2e-tests && ./bin/lint.sh` for the end to end tests project
         
 **Build pipeline**
 

@@ -13,7 +13,9 @@ jobs:
       - checkout
       - run:
           name: run linting
-          command: cd heracles-api && ./bin/lint.sh
+          command: |
+              cd heracles-api
+              ./bin/lint.sh
 
   api-unit-test:
     docker:
@@ -23,7 +25,9 @@ jobs:
       - checkout
       - run:
           name: run unit test
-          command: cd heracles-api && ./bin/unit-test.sh
+          command: |
+              cd heracles-api
+              ./bin/unit-test.sh
 
   api-integration-test:
     docker:
@@ -33,7 +37,9 @@ jobs:
       - checkout
       - run:
           name: run integration test
-          command: cd heracles-api && ./bin/integration-test.sh
+          command: |
+            cd heracles-api
+            ./bin/integration-test.sh
 
   ui-lint:
     docker:
@@ -103,12 +109,30 @@ jobs:
       - checkout
       - run:
           name: run linting
-          command: cd heracles-e2e-tests && ./bin/lint.sh
+          command: |
+              cd heracles-e2e-tests
+              ./bin/lint.sh
 
   end-to-end-test:
     <<: *defaults
     steps:
       - checkout
+
+      - run:
+          name: install firefox & geckodriver
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpango1.0-0
+            sudo apt-get install firefox
+            sudo ln -sf /usr/lib/firefox/firefox /usr/bin/firefox
+
+      - run:
+          name: Install Chrome
+          command: |
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get install google-chrome-stable
 
       - run:
           name: build api image
@@ -119,8 +143,20 @@ jobs:
           command: docker build heracles-ui/. --tag heracles-ui
 
       - run:
+          name: start backend server
+          command: docker run --publish 8080:8080 heracles-api
+          background: true
+
+      - run:
+          name: start frontend server
+          command: docker run --publish 3000:3000 heracles-ui
+          background: true
+
+      - run:
           name: run end to end tests
-          command: docker run --publish 3000:3000 heracles-ui && cd heracles-e2e-tests && ./bin/e2e-test.sh
+          command: |
+            cd heracles-e2e-tests
+            ./bin/e2e-test.sh
 
 workflows:
   version: 2

@@ -22,7 +22,7 @@ ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
 
-COPY --from=builder $APP_HOME/build/libs/heracles-api-0.0.1-SNAPSHOT.jar $APP_HOME/bin/start.sh $APP_HOME
+COPY --from=builder $APP_HOME/build/libs/heracles-api-0.0.1-SNAPSHOT.jar $APP_HOME/bin/start.sh ./
 
 EXPOSE 8080
 
