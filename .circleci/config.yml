@@ -144,19 +144,19 @@ jobs:
 
       - run:
           name: start backend server
-          command: docker run --publish 8080:8080 heracles-api
+          command: docker run --publish 8080:8080 --rm --interactive --tty heracles-api java -java heracles-api-0.0.1-SNAPSHOT.jar
           background: true
 
       - run:
           name: start frontend server
-          command: docker run --publish 3000:3000 heracles-ui
+          command: docker run --publish 3000:3000 --rm --interactive --tty heracles-ui
           background: true
 
       - run:
           name: run end to end tests
           command: |
             cd heracles-e2e-tests
-            ./bin/e2e-test.sh
+            ./bin/end-to-end-test.sh
 
 workflows:
   version: 2
