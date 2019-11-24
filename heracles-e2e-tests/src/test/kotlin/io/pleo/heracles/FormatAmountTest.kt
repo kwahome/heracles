@@ -14,7 +14,7 @@ class FormatAmountTest {
     // list of browsers to test against
     // we can add in more
     // we can also make it more configurable without code intervention
-    private val browsers: List<WebDriverType> = listOf(WebDriverType.FIREFOX)
+    private val browsers: List<WebDriverType> = listOf(WebDriverType.CHROME, WebDriverType.FIREFOX)
 
     @Test
     fun testAgainstSeveralBrowsers() {
