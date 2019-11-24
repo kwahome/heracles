@@ -95,6 +95,16 @@ jobs:
           name: run unit tests
           command: ./bin/unit-test.sh
 
+  end-to-end-tests-lint:
+    docker:
+      - image: circleci/openjdk:11-jdk
+        working_directory: ~/heracles-e2e-tests
+    steps:
+      - checkout
+      - run:
+          name: run linting
+          command: cd heracles-e2e-tests && ./bin/lint.sh
+
   end-to-end-test:
     <<: *defaults
     steps:
@@ -110,7 +120,7 @@ jobs:
 
       - run:
           name: run end to end tests
-          command: docker run --publish 8080:8080 heracles-api && docker run --publish 3000:3000 heracles-ui && cd heracles-e2e-tests && ./bin/e2e-test.sh
+          command: docker run --publish 3000:3000 heracles-ui && cd heracles-e2e-tests && ./bin/e2e-test.sh
 
 workflows:
   version: 2

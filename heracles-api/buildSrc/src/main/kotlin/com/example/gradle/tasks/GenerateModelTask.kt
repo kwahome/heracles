@@ -1,5 +1,6 @@
 package com.example.gradle.tasks
 
+import java.io.File
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.provider.Property
@@ -13,7 +14,6 @@ import org.openapitools.codegen.CodegenConstants
 import org.openapitools.codegen.DefaultGenerator
 import org.openapitools.codegen.config.CodegenConfigurator
 import org.openapitools.codegen.config.GeneratorProperties
-import java.io.File
 
 /**
  * A task which generates the desired code.
@@ -74,7 +74,8 @@ open class GenerateModelTask : DefaultTask() {
     /**
      * Path to json configuration file.
      * File content should be in a json format { "optionKey":"optionValue", "optionKey1":"optionValue1"...}
-     * Supported options can be different for each language. Run config-help -g {generator name} command for language specific config options.
+     * Supported options can be different for each language. Run config-help -g {generator name} command for language
+     * specific config options.
      */
     @get:Internal
     val configFile = project.objects.property<String>()
@@ -128,14 +129,16 @@ open class GenerateModelTask : DefaultTask() {
     val typeMappings = project.objects.property<Map<String, String>>()
 
     /**
-     * Sets additional properties that can be referenced by the mustache templates in the format of name=value,name=value.
+     * Sets additional properties that can be referenced by the mustache templates in the format of name=value,
+     * name=value.
      * You can also have multiple occurrences of this option.
      */
     @get:Internal
     val additionalProperties = project.objects.property<Map<String, String>>()
 
     /**
-     * Specifies additional language specific primitive types in the format of type1,type2,type3,type3. For example: String,boolean,Boolean,Double.
+     * Specifies additional language specific primitive types in the format of type1,type2,type3,type3.
+     * For example: String,boolean,Boolean,Double.
      */
     @get:Internal
     val languageSpecificPrimitives = project.objects.listProperty<String>()
@@ -153,19 +156,22 @@ open class GenerateModelTask : DefaultTask() {
     val invokerPackage = project.objects.property<String>()
 
     /**
-     * GroupId in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in non-jvm generators.
+     * GroupId in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in non-jvm
+     * generators.
      */
     @get:Internal
     val groupId = project.objects.property<String>()
 
     /**
-     * ArtifactId in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in non-jvm generators.
+     * ArtifactId in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in
+     * non-jvm generators.
      */
     @get:Internal
     val id = project.objects.property<String>()
 
     /**
-     * Artifact version in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in non-jvm generators.
+     * Artifact version in generated pom.xml/build.gradle or other build script. Language-specific conversions occur in
+     * non-jvm generators.
      */
     @get:Internal
     val version = project.objects.property<String>()
@@ -219,36 +225,42 @@ open class GenerateModelTask : DefaultTask() {
     val removeOperationIdPrefix = project.objects.property<Boolean?>()
 
     /**
-     * Defines which API-related files should be generated. This allows you to create a subset of generated files (or none at all).
+     * Defines which API-related files should be generated. This allows you to create a subset of generated files
+     * (or none at all).
      *
      * This option enables/disables generation of ALL api-related files.
      *
-     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or [supportingFilesConstrainedTo] results
-     *   in others being disabled. That is, OpenAPI Generator considers any one of these to define a subset of generation.
-     *   For more control over generation of individual files, configure an ignore file and refer to it via [ignoreFileOverride].
+     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or
+     * [supportingFilesConstrainedTo] results in others being disabled. That is, OpenAPI Generator considers any one of
+     * these to define a subset of generation. For more control over generation of individual files, configure an ignore
+     * file and refer to it via [ignoreFileOverride].
      */
     @get:Internal
     val apiFilesConstrainedTo = project.objects.listProperty<String>()
 
     /**
-     * Defines which model-related files should be generated. This allows you to create a subset of generated files (or none at all).
+     * Defines which model-related files should be generated. This allows you to create a subset of generated files
+     * (or none at all).
      *
-     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or [supportingFilesConstrainedTo] results
-     *   in others being disabled. That is, OpenAPI Generator considers any one of these to define a subset of generation.
-     *   For more control over generation of individual files, configure an ignore file and refer to it via [ignoreFileOverride].
+     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or
+     * [supportingFilesConstrainedTo] results in others being disabled. That is, OpenAPI Generator considers any one of
+     * these to define a subset of generation. For more control over generation of individual files, configure an ignore
+     * file and refer to it via [ignoreFileOverride].
      */
     @get:Internal
     val modelFilesConstrainedTo = project.objects.listProperty<String>()
 
     /**
-     * Defines which supporting files should be generated. This allows you to create a subset of generated files (or none at all).
+     * Defines which supporting files should be generated. This allows you to create a subset of generated files
+     * (or none at all).
      *
      * Supporting files are those related to projects/frameworks which may be modified
      * by consumers.
      *
-     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or [supportingFilesConstrainedTo] results
-     *   in others being disabled. That is, OpenAPI Generator considers any one of these to define a subset of generation.
-     *   For more control over generation of individual files, configure an ignore file and refer to it via [ignoreFileOverride].
+     * NOTE: Configuring any one of [apiFilesConstrainedTo], [modelFilesConstrainedTo], or
+     * [supportingFilesConstrainedTo] results in others being disabled. That is, OpenAPI Generator considers any one of
+     * these to define a subset of generation. For more control over generation of individual files, configure an ignore
+     * file and refer to it via [ignoreFileOverride].
      */
     @get:Internal
     val supportingFilesConstrainedTo = project.objects.listProperty<String>()
@@ -312,10 +324,10 @@ open class GenerateModelTask : DefaultTask() {
     val logToStderr = project.objects.property<Boolean>()
 
     /**
-     * To enable the file post-processing hook. This enables executing an external post-processor (usually a linter program).
-     * This only enables the post-processor. To define the post-processing command, define an environment variable such as
-     * LANG_POST_PROCESS_FILE (e.g. GO_POST_PROCESS_FILE, SCALA_POST_PROCESS_FILE). Please open an issue if your target
-     * generator does not support this functionality.
+     * To enable the file post-processing hook. This enables executing an external post-processor
+     * (usually a linter program). This only enables the post-processor. To define the post-processing command, define
+     * an environment variable such as LANG_POST_PROCESS_FILE (e.g. GO_POST_PROCESS_FILE, SCALA_POST_PROCESS_FILE).
+     * Please open an issue if your target generator does not support this functionality.
      */
     @get:Internal
     val enablePostProcessFile = project.objects.property<Boolean>()
@@ -327,9 +339,10 @@ open class GenerateModelTask : DefaultTask() {
     val skipValidateSpec = project.objects.property<Boolean>()
 
     /**
-     * To generate alias (array, list, map) as model. When false, top-level objects defined as array, list, or map will result in those
-     * definitions generated as top-level Array-of-items, List-of-items, Map-of-items definitions.
-     * When true, A model representation either containing or extending the array,list,map (depending on specific generator implementation) will be generated.
+     * To generate alias (array, list, map) as model. When false, top-level objects defined as array, list, or map will
+     * result in those definitions generated as top-level Array-of-items, List-of-items, Map-of-items definitions.
+     * When true, A model representation either containing or extending the array,list,map (depending on specific
+     * generator implementation) will be generated.
      */
     @get:Internal
     val generateAliasAsModel = project.objects.property<Boolean>()
@@ -376,13 +389,19 @@ open class GenerateModelTask : DefaultTask() {
             }
 
             if (supportingFilesConstrainedTo.isPresent && supportingFilesConstrainedTo.get().isNotEmpty()) {
-                GeneratorProperties.setProperty(CodegenConstants.SUPPORTING_FILES, supportingFilesConstrainedTo.get().joinToString(","))
+                GeneratorProperties.setProperty(
+                        CodegenConstants.SUPPORTING_FILES,
+                        supportingFilesConstrainedTo.get().joinToString(",")
+                )
             } else {
                 GeneratorProperties.clearProperty(CodegenConstants.SUPPORTING_FILES)
             }
 
             if (modelFilesConstrainedTo.isPresent && modelFilesConstrainedTo.get().isNotEmpty()) {
-                GeneratorProperties.setProperty(CodegenConstants.MODELS, modelFilesConstrainedTo.get().joinToString(","))
+                GeneratorProperties.setProperty(
+                        CodegenConstants.MODELS,
+                        modelFilesConstrainedTo.get().joinToString(",")
+                )
             } else {
                 GeneratorProperties.clearProperty(CodegenConstants.MODELS)
             }
@@ -398,7 +417,10 @@ open class GenerateModelTask : DefaultTask() {
             }
 
             if (generateModelDocumentation.isPresent) {
-                GeneratorProperties.setProperty(CodegenConstants.MODEL_DOCS, generateModelDocumentation.get().toString())
+                GeneratorProperties.setProperty(
+                        CodegenConstants.MODEL_DOCS,
+                        generateModelDocumentation.get().toString()
+                )
             }
 
             if (generateModelTests.isPresent) {
