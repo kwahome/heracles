@@ -131,4 +131,5 @@ workflows:
       - api-integration-test
       - ui-lint
       - ui-unit-test
+      - end-to-end-tests-lint
       - end-to-end-test
