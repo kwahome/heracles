@@ -124,7 +124,7 @@ application of test containers to set up a reusable integration test framework.
     
 To run these tests, use:
     
-`cd heracles-ui && gradle integrationTest` or `cd heracles-ui && ./bin/integration-test.sh`. 
+`cd heracles-api && gradle integrationTest` or `cd heracles-api && ./bin/integration-test.sh`. 
 A `jacoco` test report will be generated and stored in the path 
 `/heracles/heracles-api/build/reports/tests/integrationTest/index.html`
 
